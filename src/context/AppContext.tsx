@@ -48,7 +48,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         return;
       }
 
-      const response = await axios.get('https://nest-js-1-q81y.onrender.com/nenjas', {
+      const response = await axios.get('https://nest-js-knb6.onrender.com/nenjas', {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -37,7 +37,7 @@ export default function PlayerCards() {
             const id = localStorage.getItem('_id');
             if (!id) throw new Error("User ID not found");
 
-            const response = await axios.get<PlayerProp[]>(`https://nest-js-1-q81y.onrender.com/wallet/user/${id}`);
+            const response = await axios.get<PlayerProp[]>(`https://nest-js-knb6.onrender.com/wallet/user/${id}`);
             console.log(response);
 
             setPlayers(response.data);
@@ -55,7 +55,7 @@ export default function PlayerCards() {
 
     const handleDelete = async (id: string) => {
         try {
-            const remove = await axios.delete(`https://nest-js-1-q81y.onrender.com/wallet/delete/${id}`);
+            const remove = await axios.delete(`https://nest-js-knb6.onrender.com/wallet/delete/${id}`);
             console.log(remove, 'remove');
             toast.success('item successfully deleted!!');
             await fetchPlayers();
