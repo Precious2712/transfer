@@ -8,7 +8,7 @@ import { userData } from '@/data/country-club/userData';
 type AppContextType = {
   handleSelectClub: (club: string) => void;
   refreshUser: () => void;
-  user: userData | null; 
+  user: userData | null;
   loading: boolean;
   error: string | null;
   eng: topLeague | null;
@@ -84,13 +84,13 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     console.log('Selected club:', selectedClub);
   }
 
-  const refreshUser = async () => {
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const refreshUser = () => {
     getUser();
   };
-
-  useEffect(() => {
-    refreshUser();
-  }, []);
 
   return (
     <AppContext.Provider
