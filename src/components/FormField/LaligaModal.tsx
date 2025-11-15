@@ -50,7 +50,7 @@ export function LaligaModal({ isOpen, onClose, player }: LaligaProps) {
       console.log('club', club);
       console.log('payload', payload);
 
-      const sendRes = await axios.post('http://localhost:4000/wallet', payload);
+      const sendRes = await axios.post('https://nest-js-knb6.onrender.com/wallet', payload);
       console.log(sendRes.data);
       toast.success('Transaction completed successfully!');
     } catch (error: unknown) {
