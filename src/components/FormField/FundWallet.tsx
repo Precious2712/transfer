@@ -26,7 +26,7 @@ export function FundWallet() {
         setIsLoading(true);
         try {
             const response = await axios.put(
-                `https://nest-js-1-q81y.onrender.com/users/${id}/wallet`,
+                `https://nest-js-knb6.onrender.com/users/${id}/wallet`,
                 {
                     amount: Number(amount),
                 }

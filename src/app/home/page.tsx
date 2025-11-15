@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { leagues } from "@/data/country-club/leagues"
-import { ArrowRight, Star, Play, ChevronLeft, ChevronRight, Badge } from "lucide-react"
+import { Star, ChevronLeft, ChevronRight, Badge } from "lucide-react"
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
@@ -135,28 +135,6 @@ export default function Component() {
                             The most advanced platform for football transfers. Connect with top clubs across {`Europe's Big 5 leagues`}
                             and discover world-class talent with AI-powered insights.
                         </motion.p>
-
-                        <motion.div className="flex flex-col sm:flex-row gap-4 justify-center items-center" variants={itemVariants}>
-                            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.95 }}>
-                                <Button
-                                    size="lg"
-                                    className="bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-600 hover:to-cyan-600 text-white px-8 py-4 text-lg"
-                                >
-                                    Start Trading
-                                    <ArrowRight className="w-5 h-5 ml-2" />
-                                </Button>
-                            </motion.div>
-                            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.95 }}>
-                                <Button
-                                    size="lg"
-                                    variant="outline"
-                                    className="border-slate-700 text-slate-300 hover:bg-slate-800 px-8 py-4 text-lg"
-                                >
-                                    <Play className="w-5 h-5 mr-2" />
-                                    Watch Demo
-                                </Button>
-                            </motion.div>
-                        </motion.div>
 
                         <motion.div className="grid grid-cols-3 gap-8 max-w-md mx-auto pt-8" variants={containerVariants}>
                             {[
