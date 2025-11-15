@@ -1,15 +1,16 @@
 'use client';
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavBar } from "../ui/animateds/NavBar";
 import { FooterAndCtaSection } from "../ui/animateds/FooterAndCtaSection";
+import { User } from "@/data/country-club/user-wallet";
 import toast from "react-hot-toast";
 
 export function FundWallet() {
     const [amount, setAmount] = useState<number | string>('');
     const [message, setMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [balance, setBalance] = useState<number>(0);
+    const [user, setUser] = useState<User | null>(null);
 
     const handleFundWallet = async () => {
         if (!amount || Number(amount) <= 0) {
@@ -24,45 +25,54 @@ export function FundWallet() {
         }
 
         setIsLoading(true);
+
         try {
-            const response = await axios.put(
+            const response = await axios.put<User>(
                 `https://nest-js-knb6.onrender.com/users/${id}/wallet`,
-                {
-                    amount: Number(amount),
-                }
+                { amount: Number(amount) }
             );
 
-            const updatedWallet = response.data.wallet;
-            console.log("Fund response:", updatedWallet);
+            const updatedUser = response.data;
+            console.log("Updated User:", updatedUser);
 
-            setBalance(updatedWallet);
+            localStorage.setItem("user", JSON.stringify(updatedUser));
+
+            setUser(updatedUser);
 
             setMessage("Wallet funded successfully!");
             toast.success(
-                `You have recharged ₦${amount} to your wallet! Your new balance is ₦${updatedWallet}.`
+                `You have recharged ₦${amount}. Your new balance is ₦${updatedUser.wallet}.`
             );
-        } catch (err) {
-            console.error("Error funding wallet:", err);
+        } catch (error) {
+            console.error("Error funding wallet:", error);
             setMessage("Failed to fund wallet. Please try again.");
-            toast.error("Failed to fund wallet. Please try again");
+            toast.error("Failed to fund wallet. Please try again.");
         } finally {
             setIsLoading(false);
         }
     };
+
+    useEffect(() => {
+        const savedUser = localStorage.getItem("user");
+        if (savedUser) {
+            setUser(JSON.parse(savedUser) as User);
+        }
+    }, []);
+
 
     return (
         <div className="min-h-screen flex flex-col bg-black mt-16">
             <NavBar />
 
             <h1 className="text-blue-500 text-center mt-4 text-2xl">
-                {`${balance ? `Balance: $${balance.toLocaleString()}.00` : 'Fund your wallet'}`}
+                Wallet Balance: ₦{(user?.wallet ?? 0).toLocaleString()}
             </h1>
 
             <div className="flex-1 flex items-center justify-center p-4 mt-12">
                 <div className="w-full max-w-md mx-auto bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
                     <div className="p-8 space-y-6">
                         <div className="text-center">
-                            <h2 className="text-2xl font-bold text-white">{balance ? `${balance}` : 'Fund Your Wallet'}</h2>
+                            <h2 className="text-2xl font-bold text-white">{user ? `${user}` : 'Fund Your Wallet'}</h2>
                             <p className="text-gray-500 mt-1">Enter the amount you want to add</p>
                         </div>
 
